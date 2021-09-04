@@ -11,16 +11,17 @@ img.src = `./assets/${idx}.jpg`;
 img.setAttribute('alt', 'stretch');
 imgContainer.appendChild(img);
 
-totalSecEl.innerHTML = `${TOTAL_SECONDS} seconds`;
 let secondsRemaining = TOTAL_SECONDS;
-
+let i = 0;
 let remainder = setInterval(() => {
-  let width = (100 / TOTAL_SECONDS) * (TOTAL_SECONDS - secondsRemaining);
-  if (secondsRemaining === 0) {
+  let width = (100 / TOTAL_SECONDS) * i;
+  if (secondsRemaining === -1 && i === TOTAL_SECONDS + 1) {
     clearInterval(remainder);
     window.postMessage('hide');
   }
   barDone.style.width = `${width}%`;
-  remainingSecEl.innerHTML = `${secondsRemaining} seconds`;
+  totalSecEl.innerHTML = `${i} seconds`;
+  remainingSecEl.innerHTML = `-${secondsRemaining} seconds`;
+  i++;
   secondsRemaining--;
 }, 1000);
